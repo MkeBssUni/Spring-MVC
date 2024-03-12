@@ -32,8 +32,16 @@ public class SecurityConfig {
                 .password(passwordEncoder().encode("admin123"))
                 .roles("ADMIN")
                 .build();
+        UserDetails child = User.withUsername("child")
+                .password(passwordEncoder().encode("child123"))
+                .roles("CHILD")
+                .build();
+        UserDetails adult = User.withUsername("adult")
+                .password(passwordEncoder().encode("adult123"))
+                .roles("ADULT")
+                .build();
 
-        return new InMemoryUserDetailsManager(user1,admin);
+        return new InMemoryUserDetailsManager(user1,admin,child, adult);
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
